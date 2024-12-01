@@ -1,6 +1,7 @@
 pytesseract
-illow
-tkinter
-pandas
-fuzzywuzzy
-spacy
+Pillow
+pdfplumber
+tqdm
+rapidfuzz
+psycopg2-binary
+unittest
