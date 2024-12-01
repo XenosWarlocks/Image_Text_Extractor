@@ -1,0 +1,6 @@
+pytesseract
+illow
+tkinter
+pandas
+fuzzywuzzy
+spacy
