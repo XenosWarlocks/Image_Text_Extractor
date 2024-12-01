@@ -2,6 +2,7 @@
     "remove_terms": [
         "show.details.v", "show.phones", "usa.with.more"
     ],
+    "google_gemini_api_key": "YOUR_API_KEY",
     "output_format": "csv",
     "db_config": {
         "database": "text_extraction",
