@@ -1,0 +1,17 @@
+{
+    "remove_terms": [
+        "show.details.v", "show.phones", "usa.with.more"
+    ],
+    "output_format": "csv",
+    "db_config": {
+        "database": "text_extraction",
+        "user": "user",
+        "password": "password",
+        "host": "localhost",
+        "port": 5432
+    },
+    "batch_processing": {
+        "use_multithreading": true,
+        "threads": 4
+    }
+}
