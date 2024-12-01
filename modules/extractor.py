@@ -8,9 +8,12 @@ from tkinter import Tk, filedialog
 from modules.filters import TextFilter
 
 class OCRExtractor:
-    def __init__(self, logger):
+    def __init__(self, logger, tesseract_path=None):
         self.logger = logger
-        pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+        if tesseract_path:
+            pytesseract.pytesseract.tesseract_cmd = tesseract_path
+        else:
+            pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
 
     def select_folder(self):
         root = Tk()
@@ -53,8 +56,13 @@ class OCRExtractor:
                 file_name = futures[future]
                 text = future.result()
                 if text:
-                    results[file_name] = text_filter.apply_filters(text)
+                    processed_text = text_filter.apply_filters(text)
+                    results[file_name] = processed_text
+                    # Log successful processing
+                    self.logger.info(f"Processed {file_name}: {len(processed_text)} characters")
                 else:
+                    # Log failed processing
+                    self.logger.warning(f"Failed to process {file_name}")
                     results[file_name] = None
         
         return results
