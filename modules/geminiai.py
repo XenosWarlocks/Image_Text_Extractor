@@ -10,11 +10,28 @@ class GoogleGeminiClient:
         Returns extracted insights (e.g., NER results).
         """
         try:
-            response = genai.generate_text(
-                prompt=f"Extract named entities (e.g., PERSON, ORGANIZATION) from the following text:\n{text}",
-                model="gemini-1.5-pro"
-            )
-            return response
+            model = genai.GenerativeModel('gemini-pro')
+            prompt = f"Extract named entities (PERSON, ORGANIZATION) from this text. Return as a list:\n{text}"
+            response = model.generate_content(prompt)
+
+            # Check if response is valid
+            if response and response.text:
+                # Parse entities from the response
+                return [entity.strip() for entity in response.text.split('\n') if entity.strip()]
+            return []
         except Exception as e:
             print(f"Error using Google Gemini API: {e}")
             return None
+        
+    def additional_name_analysis(self, name):
+        """Perform additional analysis on a extracted name"""
+        try:
+            model = genai.GenerativeModel('gemini-pro')
+            prompt = f"Provide a brief professional context or background for the name: {name}"
+            response = model.generate_content(prompt)
+            
+            return response.text.strip() if response and response.text else "No additional information found."
+        
+        except Exception as e:
+            print(f"Error in name analysis: {e}")
+            return "Analysis failed."
