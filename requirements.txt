@@ -4,4 +4,4 @@ pdfplumber
 tqdm
 rapidfuzz
 psycopg2-binary
-unittest
+google-generativeai
